@@ -178,6 +178,6 @@ int main(int argc, char *argv[]) {
     return match_pattern(input_line, pattern) ? 0 : 1;
   } catch (const std::runtime_error &e) {
     std::cerr << e.what() << std::endl;
-    return 1;
+    return 2;
   }
 }

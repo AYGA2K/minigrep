@@ -122,10 +122,10 @@ test: $(TARGET)
 	@echo "Test 9: Error handling - Unclosed bracket"
 	@echo "  Input:    'test'"
 	@echo "  Pattern:  '[abc' (unclosed character class - should error)"
-	@echo -n "  Expected: Exit code 1 (error) - "
+	@echo -n "  Expected: Exit code 2 (error) - "
 	@echo "test" | ./$(TARGET) -E "[abc" 2>/dev/null; \
-	if [ $$? -eq 1 ]; then \
-		echo "✓ PASS (exit code: 1)"; \
+	if [ $$? -eq 2 ]; then \
+	    echo "✓ PASS (exit code: 2)"; \
 	else \
 		echo "✗ FAIL (exit code: $$?)"; \
 	fi
