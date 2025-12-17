@@ -4,48 +4,68 @@
 
 ## Features
 
-- **Basic Pattern Matching**: Match literal characters and sequences
-- **Character Classes**: Support for `[abc]` and `[^abc]` (negation)
-- **Escape Sequences**:
-  - `\d` - matches digits (0-9)
-  - `\w` - matches word characters (a-z, A-Z, 0-9, \_)
-- **Anchors**:
-  - `^` - match at start of string
-  - `$` - match at end of string
-- **Quantifiers**:
-  - `+` - match one or more times
-  - `?` - match zero or one time
+- **Literal characters**: Match exact text
+- **Wildcard (.)**: Match any single character
+- **Anchors**: `^` for start of string, `$` for end of string
+- **Character classes**: `[abc]` matches a, b, or c; `[^abc]` matches anything except a, b, or c
+- **Quantifiers**: `+` (one or more), `?` (zero or one)
+- **Alternation**: `(a|b)` matches either a or b
+- **Escape sequences**: `\d` for digits, `\w` for word characters
 
 ## Usage
 
 ```bash
-# Basic usage pattern
-echo "input string" | ./minigrep -E "pattern"
+# Basic pattern matching
+echo "hello" | ./minigrep -E "hello"
 
-# Examples
-echo "hello123" | ./minigrep -E "hello\d+"
+# Match digits
+echo "test123" | ./minigrep -E "test\d+"
+
+# Exact string match
 echo "test" | ./minigrep -E "^test$"
+
+# Character classes
 echo "abc" | ./minigrep -E "[abc]+"
+
+# Word characters
 echo "word_123" | ./minigrep -E "\w+"
+
+# Optional character
+echo "color" | ./minigrep -E "colou?r"
+
+# Alternation
+echo "cat" | ./minigrep -E "(cat|dog)"
 ```
 
 ### Return Codes
 
-- `0` - Pattern matched successfully
-- `1` - Pattern did not match or error occurred
+- `0`: Pattern matched successfully
+- `1`: Pattern did not match
+- `2`: Error occurred (malformed pattern, etc.)
 
 ## Building
-
-Since this is a minimal C++ project with a single source file, you can compile it directly:
-
-```bash
-g++ -std=c++11 -o minigrep main.cpp
-```
-
-Or use the provided Makefile:
 
 ```bash
 make
 ```
 
-This will build the `minigrep` executable.
+Or compile manually:
+
+```bash
+g++ -std=c++11 -o minigrep main.cpp helpers.cpp matcher.cpp
+```
+
+## Testing
+
+Run the test suite:
+
+```bash
+make test
+```
+
+## Project Structure
+
+- `main.cpp`: Main program and argument handling
+- `helpers.cpp`: Utility functions
+- `matcher.cpp`: Core pattern matching logic
+- `helpers.h`, `matcher.h`: Header files
